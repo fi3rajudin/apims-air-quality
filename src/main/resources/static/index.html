@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malaysia Air Quality</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="page-shell">
+    <header class="hero">
+        <div>
+            <p class="eyebrow">DOE APIMS</p>
+            <h1>Malaysia Air Quality</h1>
+            <p class="subtitle">Check the nearest air-quality monitoring station for any Malaysian town, area or landmark.</p>
+        </div>
+        <button id="refreshButton" type="button" class="secondary-button">Refresh readings</button>
+    </header>
+
+    <section class="location-search" aria-labelledby="locationSearchTitle">
+        <div>
+            <p class="section-kicker">Check a place</p>
+            <h2 id="locationSearchTitle">Search near a location</h2>
+            <p class="search-help">Try Damansara Damai, KLCC, Miri, Bukit Jalil or another Malaysian place.</p>
+        </div>
+        <form id="locationSearchForm" class="search-form">
+            <label class="sr-only" for="locationSearchInput">Town, area or landmark</label>
+            <input id="locationSearchInput" type="search" autocomplete="off" placeholder="Town, area or landmark" required>
+            <button id="locationSearchButton" type="submit">Search</button>
+        </form>
+        <p id="locationSearchStatus" class="search-status" aria-live="polite"></p>
+    </section>
+
+    <section id="nearestSection" class="nearest-section" hidden>
+        <div class="nearest-heading">
+            <div>
+                <p class="section-kicker">Nearest monitoring station</p>
+                <h2 id="searchedPlaceName">Selected location</h2>
+            </div>
+            <p id="searchedCoordinates" class="coordinates"></p>
+        </div>
+        <div id="nearestStationCard"></div>
+        <div id="nearbyStations" class="nearby-stations"></div>
+    </section>
+
+    <section class="toolbar" aria-label="Filters">
+        <label for="stateFilter">Browse by state</label>
+        <select id="stateFilter">
+            <option value="">All states</option>
+        </select>
+        <span id="stationCount" class="station-count"></span>
+    </section>
+
+    <section id="statusPanel" class="status-panel" aria-live="polite">Loading current readings...</section>
+    <section id="readingsGrid" class="readings-grid" aria-label="Air quality readings"></section>
+
+    <footer class="data-credit">
+        Air-quality readings: Department of Environment Malaysia APIMS. Location search data: © OpenStreetMap contributors.<br>
+        Independent project; not an official Department of Environment Malaysia service.
+    </footer>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

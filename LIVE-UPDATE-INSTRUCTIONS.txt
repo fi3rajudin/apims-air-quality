@@ -1,0 +1,33 @@
+RAINCHECK / APIMS - Render-ready update
+
+Before copying these files, make a Git commit or backup of your current working version.
+
+Copy this archive over the root of:
+C:\SUPPORT\PROJECTS\RAINCHECK\apims-air-quality
+
+It adds/updates:
+- Backend location search proxy: GET /api/locations/search?q=...
+- Nominatim server-side caching and 1.1 second request spacing
+- Nominatim identifying User-Agent
+- 5s connect / 10s read timeouts for upstream HTTP calls
+- DOE query construction fix
+- Malaysia +08:00 reading-time mapping
+- Render PORT support and production-safe error settings
+- Dockerfile, .dockerignore, render.yaml
+- Health endpoint for Render: /actuator/health
+- Public-service disclaimer in the UI
+
+Local verification:
+  mvn clean test
+  mvn spring-boot:run
+
+Then test:
+  http://localhost:8080/actuator/health
+  http://localhost:8080/api/readings
+  http://localhost:8080/api/locations/search?q=Damansara%20Damai
+  http://localhost:8080
+
+Expected health response contains status UP.
+
+For Render, commit these files to GitHub. The included render.yaml uses Docker, plan free,
+and /actuator/health as the health check.

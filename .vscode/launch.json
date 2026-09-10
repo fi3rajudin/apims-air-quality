@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run APIMS Air Quality",
+      "request": "launch",
+      "mainClass": "com.fit.apims.ApimsAirQualityApplication",
+      "projectName": "apims-air-quality"
+    }
+  ]
+}

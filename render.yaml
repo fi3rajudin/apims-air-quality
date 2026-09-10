@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: raincheck-apims
+    runtime: docker
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: GEOCODING_USER_AGENT
+        value: RainCheck-APIMS/1.0
