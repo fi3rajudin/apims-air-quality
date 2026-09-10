@@ -39,13 +39,47 @@ function formatTime(value) {
     }).format(date);
 }
 
+function getApiStatus(api, fallbackStatus = '') {
+    const value = Number(api);
+
+    if (!Number.isFinite(value)) {
+        return fallbackStatus || 'N/A';
+    }
+
+    if (value <= 50) return 'Good';
+    if (value <= 100) return 'Moderate';
+    if (value <= 200) return 'Unhealthy';
+    if (value <= 300) return 'Very Unhealthy';
+
+    return 'Hazardous';
+}
+
 function apiStatusClass(status) {
-    const normalized = String(status || '').toLowerCase();
-    if (normalized.includes('good')) return 'status-good';
-    if (normalized.includes('moderate')) return 'status-moderate';
-    if (normalized.includes('unhealthy')) return 'status-unhealthy';
-    if (normalized.includes('hazard')) return 'status-hazardous';
-    return '';
+    const normalized = String(status || '').trim().toLowerCase();
+
+    // Check this BEFORE "unhealthy",
+    // otherwise "very unhealthy" matches "unhealthy".
+    if (normalized.includes('very unhealthy')) {
+        return 'status-very-unhealthy';
+    }
+
+    if (normalized.includes('unhealthy')) {
+        return 'status-unhealthy';
+    }
+
+    if (normalized.includes('hazard')) {
+        return 'status-hazardous';
+    }
+
+    if (normalized.includes('moderate')) {
+        return 'status-moderate';
+    }
+
+    if (normalized.includes('good')) {
+        return 'status-good';
+    }
+
+    return 'status-na';
 }
 
 function stationTitle(item) {
@@ -66,27 +100,40 @@ function populateStates(readings) {
 }
 
 function renderReadingCard(item) {
+    const status = getApiStatus(item.api, item.status);
+    const statusClass = apiStatusClass(status);
+
     return `
-        <article class="reading-card">
+        <article class="reading-card ${statusClass}-card">
             <div class="card-top">
                 <div>
                     <h2 class="location">${escapeHtml(stationTitle(item))}</h2>
                     <p class="state">${escapeHtml(item.state || 'Unknown state')}</p>
                 </div>
-                <div>
+
+                <div class="api-display ${statusClass}-text">
                     <div class="api-value">${escapeHtml(item.api ?? '—')}</div>
                     <span class="api-label">API</span>
                 </div>
             </div>
-            <span class="badge ${apiStatusClass(item.status)}">${escapeHtml(item.status || 'Status unavailable')}</span>
+
+            <span class="badge ${statusClass}">
+                ${escapeHtml(status)}
+            </span>
+
             <div class="reading-meta">
                 <div>
                     <span class="meta-label">Pollutant</span>
-                    <span class="meta-value">${escapeHtml(item.pollutant || 'Not provided')}</span>
+                    <span class="meta-value">
+                        ${escapeHtml(item.pollutant || 'Not provided')}
+                    </span>
                 </div>
+
                 <div>
                     <span class="meta-label">Updated</span>
-                    <span class="meta-value">${escapeHtml(formatTime(item.readingTime))}</span>
+                    <span class="meta-value">
+                        ${escapeHtml(formatTime(item.readingTime))}
+                    </span>
                 </div>
             </div>
         </article>
@@ -174,6 +221,7 @@ function renderNearestLocation(place) {
     }
 
     const primary = nearest[0];
+    const primaryStatus = getApiStatus(primary.api, primary.status);
     searchedPlaceName.textContent = place.name;
     searchedCoordinates.textContent = `${place.latitude.toFixed(5)}, ${place.longitude.toFixed(5)}`;
 
@@ -184,9 +232,9 @@ function renderNearestLocation(place) {
                     <p class="nearest-distance">${primary.distanceKm.toFixed(1)} km from your searched location</p>
                     <h3>${escapeHtml(stationTitle(primary))}</h3>
                     <p class="nearest-place">${escapeHtml(primary.place || primary.state || '')}</p>
-                    <span class="badge ${apiStatusClass(primary.status)}">${escapeHtml(primary.status || 'Status unavailable')}</span>
+                    <span class="badge ${apiStatusClass(primaryStatus)}">${escapeHtml(primaryStatus)}</span>
                 </div>
-                <div class="nearest-api-block">
+                <div class="nearest-api-block ${apiStatusClass(primaryStatus)}-text">
                     <span class="nearest-api">${escapeHtml(primary.api ?? '—')}</span>
                     <span>API</span>
                 </div>
@@ -210,7 +258,7 @@ function renderNearestLocation(place) {
                         <span>${escapeHtml(item.state || '')}</span>
                     </div>
                     <span>${item.distanceKm.toFixed(1)} km</span>
-                    <span class="nearby-api">API ${escapeHtml(item.api ?? '—')}</span>
+                    <span class="nearby-api ${apiStatusClass(getApiStatus(item.api, item.status))}">API ${escapeHtml(item.api ?? '—')}</span>
                 </div>
             `).join('')}
         </div>
