@@ -79,7 +79,7 @@ A five-minute in-memory cache is included to avoid repeatedly hitting the DOE se
 - Show API categories and health guidance.
 - Add historical charts if a historical source can be identified.
 - Convert the UI to React/Vue later without changing the backend contract.
-- Add persistence if you want to build your own historical dataset from periodic readings.
+- Add persistence if want to build your own historical dataset from periodic readings.
 
 ## Deploy on Render
 
