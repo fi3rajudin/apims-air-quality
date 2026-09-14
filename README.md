@@ -93,8 +93,6 @@ Recommended production environment variable:
 GEOCODING_USER_AGENT=RainCheck-APIMS/1.0
 ```
 
-If you later have a public project URL or contact page, make the User-Agent more specific so it clearly identifies the application.
-
 The application binds to Render's `PORT` environment variable automatically.
 
 ### Upstream-service notes
