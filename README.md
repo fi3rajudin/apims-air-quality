@@ -95,6 +95,8 @@ GEOCODING_USER_AGENT=RainCheck-APIMS/1.0
 
 The application binds to Render's `PORT` environment variable automatically.
 
+https://apims-air-quality.onrender.com/
+
 ### Upstream-service notes
 
 DOE APIMS data and OpenStreetMap Nominatim are external dependencies. The application caches DOE readings for five minutes and geocoding results for 24 hours. Nominatim requests are serialized to no more than roughly one request per second. Do not add client-side autocomplete against the public Nominatim service.
