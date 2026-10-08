@@ -1,0 +1,41 @@
+name: Wake APIMS
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+      timezone: 'Asia/Kuala_Lumpur'
+  workflow_dispatch:
+
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wake APIMS and wait for health
+        shell: bash
+        run: |
+          URL="https://apims-air-quality.onrender.com/actuator/health"
+
+          echo "Waking APIMS..."
+
+          for i in {1..12}; do
+            echo "Attempt $i"
+
+            STATUS=$(curl -s -o /tmp/response.txt -w "%{http_code}" \
+              --max-time 20 \
+              "$URL" || true)
+
+            cat /tmp/response.txt || true
+            echo
+            echo "HTTP status: $STATUS"
+
+            if [ "$STATUS" = "200" ]; then
+              echo "APIMS is awake."
+              exit 0
+            fi
+
+            sleep 10
+          done
+
+          echo "APIMS did not become healthy in time."
+          exit 1
