@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../apims-render-ready-update/tests"
+		}
+	],
+	"settings": {}
+}

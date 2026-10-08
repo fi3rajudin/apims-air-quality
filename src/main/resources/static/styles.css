@@ -168,3 +168,97 @@ select {
     .station-count { margin-left: 0; }
     select { width: 100%; }
 }
+
+/* =========================================================
+   APIMS STATUS COLOURS
+   ========================================================= */
+
+.status-good {
+    color: #2563eb;
+    border-color: #2563eb;
+    background: rgba(37, 99, 235, 0.12);
+}
+
+.status-moderate {
+    color: #16a34a;
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.status-unhealthy {
+    color: #ca8a04;
+    border-color: #facc15;
+    background: rgba(250, 204, 21, 0.14);
+}
+
+.status-very-unhealthy {
+    color: #ea580c;
+    border-color: #f97316;
+    background: rgba(249, 115, 22, 0.14);
+}
+
+.status-hazardous {
+    color: #dc2626;
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.14);
+}
+
+.status-na {
+    color: #6b7280;
+    border-color: #9ca3af;
+    background: rgba(156, 163, 175, 0.12);
+}
+
+.status-good-text .api-value,
+.status-good-text .nearest-api {
+    color: #2563eb;
+}
+
+.status-moderate-text .api-value,
+.status-moderate-text .nearest-api {
+    color: #22c55e;
+}
+
+.status-unhealthy-text .api-value,
+.status-unhealthy-text .nearest-api {
+    color: #facc15;
+}
+
+.status-very-unhealthy-text .api-value,
+.status-very-unhealthy-text .nearest-api {
+    color: #f97316;
+}
+
+.status-hazardous-text .api-value,
+.status-hazardous-text .nearest-api {
+    color: #ef4444;
+}
+
+.status-na-text .api-value,
+.status-na-text .nearest-api {
+    color: #9ca3af;
+}
+
+.status-good-card {
+    border-left: 4px solid #2563eb;
+}
+
+.status-moderate-card {
+    border-left: 4px solid #22c55e;
+}
+
+.status-unhealthy-card {
+    border-left: 4px solid #facc15;
+}
+
+.status-very-unhealthy-card {
+    border-left: 4px solid #f97316;
+}
+
+.status-hazardous-card {
+    border-left: 4px solid #ef4444;
+}
+
+.status-na-card {
+    border-left: 4px solid #9ca3af;
+}
