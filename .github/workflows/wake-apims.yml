@@ -2,7 +2,7 @@ name: Wake APIMS
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '57 5 * * *'
       timezone: 'Asia/Kuala_Lumpur'
   workflow_dispatch:
 
